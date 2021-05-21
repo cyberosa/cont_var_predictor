@@ -34,7 +34,10 @@ def predict_conversion():
 			msg = "Wrong or missing parameters in the request"
 			return jsonify({'error_message': msg}), 400
 
-		result = get_model_prediction('models/rf_model.joblib',
+		for param in pred_params:
+			pred_params[param] = float(pred_params[param])
+
+		result = get_model_prediction('models/rfr_model.joblib',
 								  pred_params)
 
 		if result is None:
