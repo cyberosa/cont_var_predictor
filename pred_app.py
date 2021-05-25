@@ -26,9 +26,14 @@ def home():
 def predict_conversion():
 	try:
 		pred_params = request.args.to_dict()
-		if len(pred_params.keys()) < len(app_param_cols):
-			msg = "Missing parameters in the request"
+		if len(pred_params.keys()) != len(app_param_cols):
+			msg = "Wrong number of parameters in the request"
 			return jsonify({'error_message': msg}), 400
+
+		for feature in app_param_cols:
+			if feature not in pred_params.keys():
+				msg = "Missing parameter in the request"
+				return jsonify({'error_message': msg}), 400
 
 		if pred_params is None:
 			msg = "Wrong or missing parameters in the request"
@@ -37,7 +42,7 @@ def predict_conversion():
 		for param in pred_params:
 			pred_params[param] = float(pred_params[param])
 
-		result = get_model_prediction('models/rfr_model.joblib',
+		result = get_model_prediction('models/rf_model_d13.joblib',
 								  pred_params)
 
 		if result is None:

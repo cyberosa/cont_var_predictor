@@ -19,18 +19,13 @@ def get_sc_num_features():
 					'feat_11': 28.0,
 					'feat_16': 2.0,
 					'feat_17': 35.0,
-					'feat_19': 10.0,
 					'feat_21': 145.0,
 					'feat_22': 101.0,
 					'feat_23': 200.0,
 					'feat_30': 7.0,
 					'feat_33': 10.0,
 					'feat_34': 30.0,
-					'feat_36': 0.0,
-					'feat_38': 99.0,
-					'feat_40': 2.0,
-					'feat_41': 100.0,
-					'feat_47': 400.0}
+					'feat_41': 100.0}
 	yield test_dict
 
 @pytest.fixture()
@@ -59,7 +54,7 @@ class TestScaleNumFeatures:
 	def test_scale_num_features(self, get_sc_num_features):
 		out_dict = scale_num_features(get_sc_num_features)
 		print(out_dict)
-		assert len(out_dict) == 20
+		assert len(out_dict) == 15
 		assert round(out_dict["feat_02_mm"],3) == 0.036
 		assert round(out_dict["feat_07_mm"],3) == 0.048
 		# out of range value
@@ -82,4 +77,4 @@ class TestGroupFeatures:
 		all_feat_dict.update(get_syn_num_features)
 		out_dict1, out_dict2 = group_features(all_feat_dict)
 		assert len(out_dict1) == 17
-		assert len(out_dict2) == 20
+		assert len(out_dict2) == 15
