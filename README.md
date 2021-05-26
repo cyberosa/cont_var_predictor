@@ -6,6 +6,8 @@ After the exploration, try different regressor models from sklearn and compare t
 
 ## API
 It will be built a REST API to send requests and get predictions. Postman is used to test the client end.
+Start the python script pred_app.py and then you can start sending requests following the pattern:
+TODO
 
 ## Testing
 Some basic unittests are proposed. However building a more robust testing framework is a TODO task for the future.
