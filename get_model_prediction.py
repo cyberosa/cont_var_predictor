@@ -1,4 +1,3 @@
-import joblib
 from data_processing import *
 import pandas as pd
 
@@ -22,7 +21,7 @@ def prepare_features(params_dict):
 	array_values.extend(list(scaled_f.values()))
 	return array_values
 
-def get_model_prediction(model_filename, params_dict):
+def get_model_prediction(model, params_dict):
 	'''
 	For a given model it gives the prediction for the given parameters
 	:param model_filename: filename path
@@ -33,10 +32,6 @@ def get_model_prediction(model_filename, params_dict):
 	try:
 		print("Preparing the features for the model")
 		x_params = prepare_features(params_dict)
-
-		# load the model
-		print("Model filename {}".format(model_filename))
-		model = joblib.load(model_filename)
 
 		# preparing the input dataset for the model
 		print("Preparing X_test for the model")

@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 import pytest
+import joblib
 
 cwd = Path.cwd()
 main_dir = cwd.parent
@@ -36,16 +37,22 @@ def get_very_high():
 
 class TestGetModelPrediction():
 	def test_model_prediction(self, get_high_example, get_low_example, get_very_high):
-		pred = get_model_prediction('./models/rf_model_d13.joblib', get_high_example)
+		model_filename = './models/rf_model_d13.joblib'
+		print("Model filename {}".format(model_filename))
+		model = joblib.load(model_filename)
+		pred = get_model_prediction(model, get_high_example)
 		assert round(pred,3) == 0.563
-		pred = get_model_prediction('./models/rf_model_d13.joblib', get_low_example)
+		pred = get_model_prediction(model, get_low_example)
 		assert round(pred,3) == 0.331
-		pred = get_model_prediction('./models/rf_model_d13.joblib', get_very_high)
+		pred = get_model_prediction(model, get_very_high)
 		assert round(pred,3) == 0.611
 		# testing with other model
-		pred = get_model_prediction('./models/rf_model_d20.joblib', get_high_example)
+		model_filename = './models/rf_model_d20.joblib'
+		print("Model filename {}".format(model_filename))
+		model = joblib.load(model_filename)
+		pred = get_model_prediction(model, get_high_example)
 		assert round(pred, 3) == 0.55
-		pred = get_model_prediction('./models/rf_model_d20.joblib', get_low_example)
+		pred = get_model_prediction(model, get_low_example)
 		assert round(pred,3) == 0.336
-		pred = get_model_prediction('./models/rf_model_d20.joblib', get_very_high)
+		pred = get_model_prediction(model, get_very_high)
 		assert round(pred,3) == 0.601

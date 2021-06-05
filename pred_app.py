@@ -1,5 +1,6 @@
 # Using flask to make an api
 # import necessary libraries and functions
+import joblib
 from flask import Flask, jsonify, request
 from data_processing import *
 from get_model_prediction import *
@@ -42,7 +43,11 @@ def predict_conversion():
 		for param in pred_params:
 			pred_params[param] = float(pred_params[param])
 
-		result = get_model_prediction('models/rf_model_d13.joblib',
+		# load the model
+		model_filename = 'models/rf_model_d13.joblib'
+		print("Model filename {}".format(model_filename))
+		model = joblib.load(model_filename)
+		result = get_model_prediction(model,
 								  pred_params)
 
 		if result is None:
